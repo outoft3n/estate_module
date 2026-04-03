@@ -30,6 +30,13 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form string="">
+                    <header>
+                        <button string="SOLD" name="action_sold_property" type="object" />
+                        <button string="CANCEL" name="action_cancel_property" type="object" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="new,received,offer_accepted,sold" />
+                    </header>
+
                     <sheet>
                         <div>
                             <h1 style="white-space: normal;">
@@ -37,11 +44,10 @@
                             </h1>
                             <field name="tag_ids" widget="many2many_tags" />
                         </div>
-                        <button string="SOLD" name="action_sold_property" type="object"/>
-                        <button string="CANCEL" name="action_cancel_property" type="object"/>
+
                         <group>
                             <group>
-                                <field name="state" />
+                                <!-- <field name="state" /> -->
                                 <field name="property_type_id" />
                                 <field name="postcode" />
                                 <field name="date_availability" />
@@ -52,7 +58,9 @@
                                 <field name="selling_price" />
                             </group>
                         </group>
+
                         <notebook>
+                            
                             <page string="Description">
                                 <!-- if not put group, the ui dosplay won't display the field name -->
                                 <group>
@@ -67,24 +75,30 @@
                                     <field name="total_area" />
                                 </group>
                             </page>
+
                             <page string="Offer">
                                 <field name="offer_ids">
                                     <list>
                                         <field name="price" />
                                         <field name="partner_id" />
-                                        <!-- fa-check and fa-times is from Font Awesome! A great way to include some icons for our UI -->
-                                        <button name="action_accept_offer" type="object" icon="fa-check"/>
-                                        <button name="action_refuse_offer" type="object" icon="fa-times"/>
+                                        <!-- fa-check and fa-times is from Font Awesome! A great way
+                                        to include some icons for our UI -->
+                                        <button name="action_accept_offer" type="object"
+                                            icon="fa-check" />
+                                        <button name="action_refuse_offer" type="object"
+                                            icon="fa-times" />
                                         <field name="status" />
                                     </list>
                                 </field>
                             </page>
+
                             <page string="Other Info">
                                 <group>
                                     <field name="user_id" />
                                     <field name="partner_id" />
                                 </group>
                             </page>
+
                         </notebook>
                     </sheet>
                 </form>
