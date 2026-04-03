@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!-- this is for the root menu which appears as a dropdown -->
+        <menuitem id="estate_property_root" name="Real Estate">
+            <!-- this is for the first layer of the top menu คือตัวที่เป็น top bar ด้านบน -->
+            <menuitem id="estate_property_first_level_menu" name="Real Estate">
+                <!-- this is for the dropdown inside the top menu -->
+                <menuitem id="estate_property_menu_action" action="estate_property_action" name="Properties" />
+            </menuitem>
+
+            <menuitem id = "estate_property_type_first_level_menu" name="Settings">
+                <menuitem id="estate_property_type_menu_action" action="estate_property_type_action" name="Property Types"/>
+                <menuitem id="estate_property_tag_menu_action" action="estate_property_tag_action" name="Property Tags"/>
+            </menuitem>
+        </menuitem>
+
+    </data>
+
+
+</odoo>

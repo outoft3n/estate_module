@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="estate_property_action" model="ir.actions.act_window">
+            <field name="name">Properties</field>
+            <field name="res_model">estate.property</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="estate_property_view_list" model="ir.ui.view">
+            <field name="name">estate.property.view.list</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <list string="Title">
+                    <field name="name" />
+                    <field name="postcode" />
+                    <field name="bedrooms" />
+                    <field name="living_area" />
+                    <field name="expected_price" />
+                    <field name="selling_price" />
+                    <field name="date_availability" />
+                </list>
+            </field>
+        </record>
+
+        <record id="estate_property_view_form" model="ir.ui.view">
+            <field name="name">estate.property.view.form</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div>
+                            <h1 style="white-space: normal;">
+                                <field name="name" placeholder="Property Title" />
+                            </h1>
+                            <field name="tag_ids" widget="many2many_tags" />
+                        </div>
+                        <button string="SOLD" name="action_sold_property" type="object"/>
+                        <button string="CANCEL" name="action_cancel_property" type="object"/>
+                        <group>
+                            <group>
+                                <field name="state" />
+                                <field name="property_type_id" />
+                                <field name="postcode" />
+                                <field name="date_availability" />
+                            </group>
+                            <group>
+                                <field name="expected_price" />
+                                <field name="best_price" />
+                                <field name="selling_price" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <!-- if not put group, the ui dosplay won't display the field name -->
+                                <group>
+                                    <field name="description" />
+                                    <field name="bedrooms" />
+                                    <field name="living_area" />
+                                    <field name="facades" />
+                                    <field name="garage" />
+                                    <field name="garden" />
+                                    <field name="garden_area" />
+                                    <field name="garden_orientation"></field>
+                                    <field name="total_area" />
+                                </group>
+                            </page>
+                            <page string="Offer">
+                                <field name="offer_ids">
+                                    <list>
+                                        <field name="price" />
+                                        <field name="partner_id" />
+                                        <!-- fa-check and fa-times is from Font Awesome! A great way to include some icons for our UI -->
+                                        <button name="action_accept_offer" type="object" icon="fa-check"/>
+                                        <button name="action_refuse_offer" type="object" icon="fa-times"/>
+                                        <field name="status" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Other Info">
+                                <group>
+                                    <field name="user_id" />
+                                    <field name="partner_id" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="estate_property_view_search" model="ir.ui.view">
+            <field name="name">estate.property.view.search</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="postcode" />
+                    <field name="expected_price" />
+                    <field name="bedrooms" />
+                    <field name="living_area" />
+                    <field name="facades" />
+                    <filter name="available_property_filter" string="Available Properties"
+                        domain="['|', ('state', '=', 'new'), ('state', '=', 'offer_received')]" />
+                    <filter name="group_by_postcode" string="Group By Postcode"
+                        context="{'group_by': 'postcode'}" />
+                </search>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>
