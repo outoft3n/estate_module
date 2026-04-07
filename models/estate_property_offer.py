@@ -5,6 +5,7 @@ from datetime import timedelta
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "An offer for property"
+    _order = "price desc"
     
     price = fields.Float()
     status = fields.Selection(copy=False, selection=[('accepted', 'Accepted'), ('refused', 'Refused')])
@@ -13,6 +14,12 @@ class EstatePropertyOffer(models.Model):
     
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_deadline", inverse="_inverse_deadline")
+    
+    property_type_id = fields.Many2one(
+        'estate.property.type',
+        related='property_id.property_type_id',
+        store=True
+    )
     
     # DATA CONSTRAINT
     _check_price = models.Constraint('CHECK(price > 0)', 'An offer price must be strictly positive')

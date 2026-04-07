@@ -10,10 +10,12 @@
     'data': [
         'security/ir.model.access.csv',
         
-        'views/estate_property_views.xml', # ต้องใส่ view ก่อน menu เพราะ data load แบบ sequentialy
+        # ต้องใส่ view ก่อน menu เพราะ data load แบบ sequentialy
+        'views/estate_property_offer_views.xml',
         'views/estate_property_type_views.xml',
         'views/estate_property_tag_views.xml',
-        
+        # add loaded all the above before this main view bc there's action depended on the above views
+        'views/estate_property_views.xml',
         
         'views/estate_menus.xml',
         

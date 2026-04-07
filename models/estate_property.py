@@ -6,6 +6,7 @@ from datetime import timedelta
 class EstateProperty(models.Model):
     _name = "estate.property" # this will be used as a table name in DB
     _description = "This table stored owned assess"
+    _order = "id desc"
     
     name = fields.Char(required=True, index=True, string="Title") # using index=True created a DB index called "estate_property__name_index"
     description = fields.Text()
@@ -26,7 +27,7 @@ class EstateProperty(models.Model):
     active = fields.Boolean(default=False) # this is a reserved field, if false then record is invisible in most search and listing
     
     state = fields.Selection(
-        selection=[('new', 'New'), ('offer', 'Offer'), ('received', 'Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')],
+        selection=[('new', 'New'), ('offer', 'Offer'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')],
         required=True,
         copy=False,
         default="new",

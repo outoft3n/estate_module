@@ -14,39 +14,53 @@
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
                 <list>
+                    <!-- use widget="handle" to have the item be ลากเรียงได้ -->
+                    <field name="sequence" widget="handle" />
                     <field name="name" />
                 </list>
             </field>
         </record>
+
+        <record id="estate_property_type_view_form" model="ir.ui.view">
+            <field name="name">estate.property.type.view.form</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <form>
+
+                    <header>
+                        <button name="%(estate_property_offer_action)d "
+                            type="action"
+                            class="oe_stat_button">
+                            <field name="offer_count" widget="statinfo" string="Offers" />
+                        </button>
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <div class="oe_title">
+                                <h1>
+                                    <field name="name" placeholder="Property Title" />
+                                </h1>
+                            </div>
+                        </group>
+
+                        <notebook>
+                            <page string="Properties">
+                                <field name="property_ids">
+                                    <list>
+                                        <field name="name" />
+                                        <field name="expected_price" />
+                                        <field name="state" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
     </data>
-
-    <record id="estate_property_type_view_form" model="ir.ui.view">
-        <field name="name">estate.property.type.view.form</field>
-        <field name="model">estate.property.type</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <h1 style="white-space: normal;">
-                            <field name="name" placeholder="Property Title" />
-                        </h1>
-                    </group>
-
-                    <notebook>
-                        <page string="Properties">
-                            <field name="property_ids">
-                                <list>
-                                    <field name="name" />
-                                    <field name="expected_price" />
-                                    <field name="state" />
-                                </list>
-                            </field>
-                        </page>
-                    </notebook>
-
-                </sheet>
-            </form>
-        </field>
-    </record>
 
 </odoo>
