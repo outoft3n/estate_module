@@ -59,3 +59,22 @@ class EstatePropertyOffer(models.Model):
             record.status = 'refused'
         return True
     
+    # INHERITANCES
+    @api.model
+    def create(self, vals_list):
+        for vals in vals_list:
+            property = self.env['estate.property'].browse(vals['property_id'])
+
+            # check price
+            if property.offer_ids:
+                max_price = max(property.offer_ids.mapped('price'))
+                if vals.get('price') < max_price:
+                    raise UserError("Offer must be higher than existing offers")
+
+        offers = super().create(vals_list)
+
+        # update state
+        for offer in offers:
+            offer.property_id.state = 'offer_received'
+
+        return offers

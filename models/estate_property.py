@@ -100,3 +100,11 @@ class EstateProperty(models.Model):
             if record.state != 'sold':
                 record.state = 'cancel'
         return True
+    
+    # INHERITANCES
+    def unlink(self):
+        for record in self:
+            if record.state not in ('new', 'cancel'):
+                raise UserError("You cannot delete a property unless it is New or Cancel")
+            record.offer_ids.unlink()
+        return super().unlink()
